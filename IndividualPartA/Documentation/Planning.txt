@@ -1,0 +1,7 @@
+﻿Private School
+	Courses
+	Trainer
+	CourseClass
+		Trainer
+		Student
+		Assignment
