@@ -10,6 +10,8 @@ namespace IndividualPartA.Models
     class CourseClass : Course
     {
         private List<Trainer> _trainers;
+        private List<Student> _students;
+        private List<Assignment> _assignments;
 
         public List<Trainer> Trainers
         {
@@ -17,15 +19,12 @@ namespace IndividualPartA.Models
             set { this._trainers = value; }
         }
 
-        private List<Student> _students;
-
         public List<Student> Students
         {
             get { return this._students; }
             set { this._students = value; }
         }
 
-        private List<Assignment> _assignments;
         public List<Assignment> Assignments
         {
             get { return this._assignments; }
@@ -39,6 +38,7 @@ namespace IndividualPartA.Models
             this.Type = course.Type;
             this.StartDate = course.StartDate;
             this.EndDate = course.EndDate;
+
             this._trainers = Initialisation.AssignTrainers(trainers, this.Stream, this.Type);
             this._assignments = Initialisation.SetUpAssignments(this.Type);
             this._students = Initialisation.SetUpStudents(this.Stream, this.Type);

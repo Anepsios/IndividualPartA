@@ -104,5 +104,97 @@ namespace IndividualPartA.BussinessLogic
 				i++;
 			}
 		}
+
+		static internal List<Student> MergeStudentLists(List<CourseClass> courseClass)
+		{
+			List<Student> allStudents = new List<Student>();
+			bool alreadyinside;
+			foreach (var item in courseClass)
+			{
+				foreach (var item2 in item.Students)
+				{
+					alreadyinside = false;
+					foreach (var item3 in allStudents)
+					{
+						if (item2.FirstName == item3.FirstName && item2.LastName == item3.LastName)
+							alreadyinside = true;
+					}
+					if (!alreadyinside)
+					{
+						allStudents.Add(item2);
+						continue;
+					}
+				}
+			}
+			return (allStudents);
+		}
+
+		static internal List<Student> MultipleCourseStudents(List<CourseClass> courseClass)
+		{
+			List<Student> multipleCourseStudents = new List<Student>();
+			bool alreadyinside;
+			for (int i = 0; i < courseClass.Count - 1; i++)
+			{
+				for (int j = i + 1; j < courseClass.Count; j++)
+				{
+					foreach (var item in courseClass[i].Students)
+					{
+						foreach (var item2 in courseClass[j].Students)
+						{
+							alreadyinside = false;
+							if (item.FirstName == item2.FirstName && item.LastName == item2.LastName)
+							{
+								foreach (var item3 in multipleCourseStudents)
+								{
+									if (item.FirstName == item3.FirstName && item.LastName == item3.LastName)
+										alreadyinside = true;
+								}
+								if (!alreadyinside)
+								{
+									multipleCourseStudents.Add(item);
+									continue;
+								}
+							}
+						}
+					}
+				}
+			}
+			return (multipleCourseStudents);
+		}
+
+		static internal List<Student> GetStudentsWithAssignment(List<CourseClass> courseClasses, DateTime[] weektoOutput)
+		{
+			List<Student> studentsWithAssignment = new List<Student>();
+			bool alreadyInside = false;
+			foreach (var item in courseClasses)
+			{
+				for (int i = 0; i < weektoOutput.Length; i++)
+				{
+					foreach (var item2 in item.Students)
+					{
+						foreach (var item3 in item2.Assignments)
+						{
+							if (DateTime.Compare(weektoOutput[i], item3.SubDateTime) == 0)
+							{
+								foreach (var item4 in studentsWithAssignment)
+								{
+									if (item2.FirstName.Equals(item4.FirstName) && item2.LastName.Equals(item4.LastName))
+									{
+										alreadyInside = true;
+										break;
+									}
+								}
+								if (!alreadyInside)
+									studentsWithAssignment.Add(item2);
+								else
+									break;
+							}
+						}
+						alreadyInside = false;
+					}
+				}
+			}
+			return (studentsWithAssignment);
+		}
 	}
 }

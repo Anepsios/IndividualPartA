@@ -46,6 +46,16 @@ namespace IndividualPartA.BussinessLogic
 			return (trainers);
 		}
 
+		static internal void PrintList(List<Trainer> trainers)
+		{
+			int i = 1;
+			foreach (var item in trainers)
+			{
+				Console.WriteLine("Trainer_" + i + ": \n" + item + "\n");
+				i++;
+			}
+		}
+
 		static internal List<Trainer> AutoAssignTrainers(List<Trainer> trainers, string subject, string type)
         {
 			List<Trainer> courseTrainers = new List<Trainer>();
@@ -97,16 +107,6 @@ namespace IndividualPartA.BussinessLogic
 				}
 			}
 			return (courseTrainers);
-		}
-
-		static internal void PrintList(List<Trainer> trainers)
-		{
-			int i = 1;
-			foreach (var item in trainers)
-			{
-				Console.WriteLine("Trainer_" + i + ": \n" + item + "\n");
-				i++;
-			}
 		}
 	}
 }

@@ -59,6 +59,8 @@ namespace IndividualPartA.BussinessLogic
 
 		static internal string SelectFromList(List<string> selections)
 		{
+			//	Used for selecting an object from an object List
+
 			int count = 1;
 			bool given = false;
 			int choise;
@@ -91,37 +93,6 @@ namespace IndividualPartA.BussinessLogic
 			}
 			return (result);
 		}
-
-		static internal int SelectFromList(List<string> selections, bool overide)
-		{
-			int count = 1;
-			bool given = false;
-			int choise = 0;
-			bool isnumber;
-			foreach (var item in selections)
-			{
-				Console.WriteLine($"{count++}. {item}");
-			}
-			while (!given)
-			{
-				if (isnumber = Int32.TryParse(Console.ReadLine(), out choise))
-				{
-					if (choise >= 1 && choise <= selections.Count())
-					{
-						given = true;
-					}
-					else
-						Console.WriteLine("Invalid Selection");
-				}
-				else
-                {
-					Console.WriteLine("Invalid Selection");
-					continue;
-                }
-			}
-			return (choise);
-		}
-
 		static internal Trainer SelectFromList(List<Trainer> selections)
 		{
 			int count = 1;
@@ -152,6 +123,38 @@ namespace IndividualPartA.BussinessLogic
                 }
 			}
 			return (result);
+		}
+
+		static internal int SelectFromList(List<string> selections, bool menu)
+		{
+			// Used specifically for selecting from a numbered menu string list
+
+			int count = 1;
+			bool given = false;
+			int choise = 0;
+			bool isnumber;
+			foreach (var item in selections)
+			{
+				Console.WriteLine($"{count++}. {item}");
+			}
+			while (!given)
+			{
+				if (isnumber = Int32.TryParse(Console.ReadLine(), out choise))
+				{
+					if (choise >= 1 && choise <= selections.Count())
+					{
+						given = true;
+					}
+					else
+						Console.WriteLine("Invalid Selection");
+				}
+				else
+                {
+					Console.WriteLine("Invalid Selection");
+					continue;
+                }
+			}
+			return (choise);
 		}
 	}
 }
