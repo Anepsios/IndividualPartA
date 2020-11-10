@@ -22,6 +22,7 @@ namespace IndividualPartA.BussinessLogic
 			List<Assignment> allAssignents = new List<Assignment>();
 			while (true)
 			{
+                Console.WriteLine("\nSelect an option from the following list:\n");
 				answer = CommandPromtUtilities.SelectFromList(selections, true);
 				switch (answer)
 				{
