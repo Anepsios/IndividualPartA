@@ -62,6 +62,7 @@ namespace IndividualPartA.BussinessLogic
 			int count = 1;
 			bool given = false;
 			int choise;
+			bool isnumber;
 			string result = "";
 			foreach (var item in selections)
 			{
@@ -69,14 +70,24 @@ namespace IndividualPartA.BussinessLogic
 			}
 			while (!given)
 			{
-				choise = int.Parse(Console.ReadLine());
-				if (choise >= 1 && choise <= selections.Count())
+                if (isnumber = Int32.TryParse(Console.ReadLine(), out choise))
 				{
-					result = selections[choise - 1];
-					given = true;
+					if (choise >= 1 && choise <= selections.Count())
+					{
+						result = selections[choise - 1];
+						given = true;
+					}
+					else
+					{
+						Console.WriteLine("Invalid Selection");
+						continue;
+					}
 				}
 				else
-					Console.WriteLine("Invalid Selection");
+                {
+                    Console.WriteLine("Invalid Selection");
+					continue;
+                }
 			}
 			return (result);
 		}
@@ -86,19 +97,27 @@ namespace IndividualPartA.BussinessLogic
 			int count = 1;
 			bool given = false;
 			int choise = 0;
+			bool isnumber;
 			foreach (var item in selections)
 			{
 				Console.WriteLine($"{count++}. {item}");
 			}
 			while (!given)
 			{
-				choise = int.Parse(Console.ReadLine());
-				if (choise >= 1 && choise <= selections.Count())
+				if (isnumber = Int32.TryParse(Console.ReadLine(), out choise))
 				{
-					given = true;
+					if (choise >= 1 && choise <= selections.Count())
+					{
+						given = true;
+					}
+					else
+						Console.WriteLine("Invalid Selection");
 				}
 				else
+                {
 					Console.WriteLine("Invalid Selection");
+					continue;
+                }
 			}
 			return (choise);
 		}
@@ -108,6 +127,7 @@ namespace IndividualPartA.BussinessLogic
 			int count = 1;
 			bool given = false;
 			int choise;
+			bool isnumber;
 			Trainer result = new Trainer();
 			foreach (var item in selections)
 			{
@@ -115,14 +135,21 @@ namespace IndividualPartA.BussinessLogic
 			}
 			while (!given)
 			{
-				choise = int.Parse(Console.ReadLine());
-				if (choise >= 1 && choise <= selections.Count())
+				if (isnumber = Int32.TryParse(Console.ReadLine(), out choise))
 				{
-					result = selections[choise - 1];
-					given = true;
+					if (choise >= 1 && choise <= selections.Count())
+					{
+						result = selections[choise - 1];
+						given = true;
+					}
+					else
+						Console.WriteLine("Invalid Selection");
 				}
-				else
+                else
+                {
 					Console.WriteLine("Invalid Selection");
+					continue;
+                }
 			}
 			return (result);
 		}

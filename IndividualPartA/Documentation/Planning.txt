@@ -1,7 +1,7 @@
 ﻿Private School
 	Courses
-	Trainer
+	Trainer		--Trainers exist outside of Class (they are part of school) and get assigned to classes after they are created
 	CourseClass
-		Trainer
-		Student
-		Assignment
+		Trainer		
+		Student			--Students exist only per class
+		Assignment		--Assignments exist only per class

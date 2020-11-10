@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using IndividualPartA.BussinessLogic;
@@ -33,11 +34,9 @@ namespace IndividualPartA.Models
             set { this.CourseClasses = value; }
         }
 
-        
-
         public PrivateSchool()
         {
-            Console.WriteLine("Welcome to private School PC Education\n");
+            Console.WriteLine("Welcome to private school PC Education\nLet's get the data for this semester");
             syntheticData = CommandPromtUtilities.SyntheticData();
             this._courses = Initialisation.SetUpCourses();
             this._trainers = Initialisation.SetUpTrainers();

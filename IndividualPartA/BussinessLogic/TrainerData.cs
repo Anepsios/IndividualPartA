@@ -49,16 +49,16 @@ namespace IndividualPartA.BussinessLogic
 		static internal List<Trainer> AutoAssignTrainers(List<Trainer> trainers, string subject, string type)
         {
 			List<Trainer> courseTrainers = new List<Trainer>();
-			if (subject == "C#")
+			if (subject.Equals("C#"))
 			{
-				if (type == "Full Time")
+				if (type.Equals("Full Time"))
 					courseTrainers.Add(trainers[0]);
 				else
 					courseTrainers.Add(trainers[1]);
 			}
 			else
 			{
-				if (type == "Full Time")
+				if (type.Equals("Full Time"))
 					courseTrainers.Add(trainers[2]);
 				else
 				{
@@ -69,7 +69,7 @@ namespace IndividualPartA.BussinessLogic
 			return (courseTrainers);
 		}
 
-		static internal List<Trainer> ManuallyAssignTrainers(List<Trainer> trainers, string subject, string type)
+		static internal List<Trainer> ManuallyAssignTrainers(List<Trainer> trainers, string subject)
         {
 			List<Trainer> courseTrainers = new List<Trainer>();
 			bool assigning = true;

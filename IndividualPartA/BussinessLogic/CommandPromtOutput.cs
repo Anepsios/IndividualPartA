@@ -53,7 +53,7 @@ namespace IndividualPartA.BussinessLogic
 						Console.WriteLine("\n\t\t<Listing all the students in each course>\n");
 						foreach (var item in courseClasses)
 						{
-							Console.WriteLine("\t\t" + item.Title);
+							Console.WriteLine("\n\t\t" + item.Title);
 							StudentData.PrintList(item.Students);
 						}
 						break;
@@ -61,7 +61,7 @@ namespace IndividualPartA.BussinessLogic
 						Console.WriteLine("\n\t\t<Listing all the trainers in each course>\n");
 						foreach (var item in courseClasses)
 						{
-							Console.WriteLine("\t\t" + item.Title);
+							Console.WriteLine("\n\t\t" + item.Title);
 							TrainerData.PrintList(item.Trainers);
 						}
 						break;
@@ -69,17 +69,18 @@ namespace IndividualPartA.BussinessLogic
 						Console.WriteLine("\n\t\t<Listing all the assignments in each course>\n");
 						foreach (var item in courseClasses)
 						{
-							Console.WriteLine("\t\t" + item.Title);
+							Console.WriteLine("\n\t\t" + item.Title);
 							AssignmentData.PrintList(item.Assignments);
 						}
 						break;
 					case 8:
-						Console.WriteLine("\n\t\t<Listing all the assignments each student has>\n");
+						Console.WriteLine("\n\t\t<Listing all the assignments each student has per course>\n");
 						foreach (var item in courseClasses)
 						{
+                            Console.WriteLine("\n\t\t" + item.Title);
 							foreach (var item2 in item.Students)
 							{
-								Console.WriteLine(item2);
+								Console.WriteLine("\n\n" + item2 + "\n\n");
 								AssignmentData.PrintList(item.Assignments);
 							}
 						}
@@ -90,25 +91,154 @@ namespace IndividualPartA.BussinessLogic
 						StudentData.PrintList(multipleCourseStudents);
 						break;
 					case 10:
-
+						DateTime[] weekToOutput = WeekToCheck();
+						PrintStudentsWithAssignment(courseClasses, weekToOutput);
 						break;
 					default:
 						break;
 				}
 			}
 		}
+
 		static internal List<Student> MergeStudentLists(List<CourseClass> courseClass)
         {
 			List<Student> allStudents = new List<Student>();
-
+			bool alreadyinside;
+            foreach (var item in courseClass)
+            {
+                foreach (var item2 in item.Students)
+                {
+					alreadyinside = false;
+					foreach (var item3 in allStudents)
+                    {
+						if (item2.FirstName == item3.FirstName && item2.LastName == item3.LastName)
+							alreadyinside = true;
+                    }
+					if (!alreadyinside)
+                    {
+						allStudents.Add(item2);
+						continue;
+                    }
+                }
+            }
 			return (allStudents);
         }
 
 		static internal List<Student> MultipleCourseStudents(List<CourseClass> courseClass)
         {
 			List<Student> multipleCourseStudents = new List<Student>();
-
+			bool alreadyinside;
+            for (int i = 0; i < courseClass.Count - 1; i++)
+            {
+                for (int j = i + 1; j < courseClass.Count; j++)
+                {
+                    foreach (var item in courseClass[i].Students)
+                    {
+                        foreach (var item2 in courseClass[j].Students)
+                        {
+							alreadyinside = false;
+							if (item.FirstName == item2.FirstName && item.LastName == item2.LastName)
+							{
+								foreach (var item3 in multipleCourseStudents)
+								{
+									if (item.FirstName == item3.FirstName && item.LastName == item3.LastName)
+										alreadyinside = true;
+								}
+								if (!alreadyinside)
+								{
+									multipleCourseStudents.Add(item);
+									continue;
+								}
+							}
+                        }
+                    }
+                }
+            }
 			return (multipleCourseStudents);
 		}
+
+		static internal DateTime[] WeekToCheck()
+        {
+			DateTime dayToCheck;
+			DateTime[] weekToOutput = new DateTime[7];
+			Console.WriteLine("\nPlease input date of week you want to check");
+			dayToCheck = DateTime.Parse(Console.ReadLine());
+			Console.WriteLine("Day of date picked: " + dayToCheck.DayOfWeek);
+			int x = (int)dayToCheck.DayOfWeek;
+			if (x == 0)
+			{
+				for (int i = 0; i < 7; i++)
+				{
+					weekToOutput[i] = dayToCheck.AddDays(-(i + 1));
+				}
+				weekToOutput = ReverseArray(weekToOutput);
+				Console.WriteLine($"Checking week {weekToOutput[1].ToString("dd/MM/yyyy")} - {weekToOutput[5].ToString("dd/MM/yyyy")}\n");
+			}
+			else
+			{
+				int count = 0;
+				for (int i = x; i >= 0; i--)
+				{
+					weekToOutput[count] = dayToCheck.AddDays(-i);
+					count++;
+				}
+				int count2 = 1;
+				for (int i = x + 1; i < 7; i++)
+				{
+					weekToOutput[count] = dayToCheck.AddDays(count2);
+					count++;
+					count2++;
+				}
+				Console.WriteLine($"Checking week {weekToOutput[1].ToString("dd/MM/yyyy")} - {weekToOutput[5].ToString("dd/MM/yyyy")}\n");
+			}
+			return (weekToOutput);
+		}
+
+		static internal DateTime[] ReverseArray(DateTime[] array)
+        {
+			DateTime[] result = new DateTime[array.Length];
+			int count = 0;
+            for (int i = array.Length - 1; i >= 0; i--)
+            {
+				result[count] = array[i];
+				count++;
+            }
+			return (result);
+        }
+
+		static internal void PrintStudentsWithAssignment(List<CourseClass> courseClasses, DateTime[] weektoOutput)
+        {
+			List<Student> studentsWithAssignment = new List<Student>();
+			bool alreadyInside = false;
+            foreach (var item in courseClasses)
+            {
+                for (int i = 0; i < weektoOutput.Length; i++)
+                {
+                    foreach (var item2 in item.Students)
+                    {
+						foreach (var item3 in item2.Assignments)
+						{
+							if (DateTime.Compare(weektoOutput[i], item3.SubDateTime) == 0)
+							{
+								foreach (var item4 in studentsWithAssignment)
+								{
+									if (item2.FirstName.Equals(item4.FirstName) && item2.LastName.Equals(item4.LastName))
+									{
+										alreadyInside = true;
+										break;
+									}
+								}
+								if (!alreadyInside)
+									studentsWithAssignment.Add(item2);
+								else
+									break;
+							}
+						}
+						alreadyInside = false;
+                    }
+                }
+            }
+				StudentData.PrintList(studentsWithAssignment);
+        }
 	}
 }

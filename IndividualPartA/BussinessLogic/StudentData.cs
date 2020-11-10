@@ -23,16 +23,16 @@ namespace IndividualPartA.BussinessLogic
 			}
 			else
 			{
-				if (subject == "C#")
+				if (subject.Equals("C#"))
 				{
-					if (type == "Full Time")
+					if (type.Equals("Full Time"))
 						students = GenerateStudentDetails1(students);
 					else
 						students = GenerateStudentDetails2(students);
 				}
 				else
 				{
-					if (type == "Full Time")
+					if (type.Equals("Full Time"))
 						students = GenerateStudentDetails3(students);
 					else
 						students = GenerateStudentDetails4(students);
@@ -68,6 +68,7 @@ namespace IndividualPartA.BussinessLogic
 			students.Add(new Student("Din", "Viezel", "25/5/1985", 2500));
 			students.Add(new Student("Mike", "Portnoy", "9/10/1993", 2250));
 			students.Add(new Student("Jane", "Doe", "28/8/1997", 2500));
+			students.Add(new Student("Mpampis", "Sougias", "2/11/1993", 5000));
 			return (students);
 		}
 

@@ -23,7 +23,7 @@ namespace IndividualPartA.BussinessLogic
 			}
 			else
 			{
-				if (type == "Full Time")
+				if (type.Equals("Full Time"))
 					assignments = GenerateAssignmentDetails1(assignments);
 				else
 					assignments = GenerateAssignmentDetails2(assignments);

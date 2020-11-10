@@ -29,7 +29,7 @@ namespace IndividualPartA.BussinessLogic
             foreach (var item in courses)
             {
 				if (!PrivateSchool.syntheticData)
-					Console.WriteLine($"Data for " + item.Title);
+					Console.WriteLine($"\n\n\t\tData for " + item.Title + "\n");
 				courseClasses.Add(new CourseClass(item, trainers));
             }
 			return (courseClasses);
@@ -41,7 +41,7 @@ namespace IndividualPartA.BussinessLogic
 			if (PrivateSchool.syntheticData)
 				courseTrainers = TrainerData.AutoAssignTrainers(trainers, subject, type);
             else
-				courseTrainers = TrainerData.ManuallyAssignTrainers(trainers, subject, type);
+				courseTrainers = TrainerData.ManuallyAssignTrainers(trainers, subject);
             return (courseTrainers);
         }
 
