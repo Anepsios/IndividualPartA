@@ -156,5 +156,54 @@ namespace IndividualPartA.BussinessLogic
 			}
 			return (choise);
 		}
+
+		static internal DateTime[] WeekToCheck()
+		{
+			DateTime dayToCheck;
+			DateTime[] weekToOutput = new DateTime[7];
+			Console.WriteLine("\nPlease input date of week you want to check");
+			dayToCheck = DateTime.Parse(Console.ReadLine());
+			Console.WriteLine("Day of date picked: " + dayToCheck.DayOfWeek);
+			int x = (int)dayToCheck.DayOfWeek;
+			if (x == 0)
+			{
+				for (int i = 0; i < 7; i++)
+				{
+					weekToOutput[i] = dayToCheck.AddDays(-(i + 1));
+				}
+				weekToOutput = ReverseArray(weekToOutput);
+				Console.WriteLine($"Checking week {weekToOutput[1].ToString("dd/MM/yyyy")} - {weekToOutput[5].ToString("dd/MM/yyyy")}\n");
+			}
+			else
+			{
+				int count = 0;
+				for (int i = x; i >= 0; i--)
+				{
+					weekToOutput[count] = dayToCheck.AddDays(-i);
+					count++;
+				}
+				int count2 = 1;
+				for (int i = x + 1; i < 7; i++)
+				{
+					weekToOutput[count] = dayToCheck.AddDays(count2);
+					count++;
+					count2++;
+				}
+				Console.WriteLine($"Checking week {weekToOutput[1].ToString("dd/MM/yyyy")} - {weekToOutput[5].ToString("dd/MM/yyyy")}\n");
+			}
+			return (weekToOutput);
+		}
+
+		static internal DateTime[] ReverseArray(DateTime[] array)
+		{
+			DateTime[] result = new DateTime[array.Length];
+			int count = 0;
+			for (int i = array.Length - 1; i >= 0; i--)
+			{
+				result[count] = array[i];
+				count++;
+			}
+			return (result);
+		}
 	}
 }
